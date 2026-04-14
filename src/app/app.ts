@@ -1,28 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Weather } from './services/weather';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
-  styleUrls: ['./app.css'],
+  styleUrl: './app.css',
 })
 export class App implements OnInit {
+  city: string = '';
+  today: string = new Date().toDateString();
   weatherData: any;
   errorMessage: string = '';
+  isLoading: boolean = false;
 
-  constructor(private weather: Weather) {}
+  constructor(
+    private weatherService: Weather,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
-  ngOnInit() {
-    console.log('App component loaded');
-    this.weather.getWeather('Dakar').subscribe({
+  ngOnInit() {}
+
+  getWeather(city: string) {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.weatherData = null;
+
+    this.weatherService.getWeather(city).subscribe({
       next: (data) => {
-        console.log('Weather data received:', data);
         this.weatherData = data;
-        this.errorMessage = '';
+        this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error fetching weather:', err);
-        this.errorMessage = 'Erreur lors de la récupération des données météo.';
+        this.errorMessage = 'Erreur lors de la récupération des données';
+        this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }
