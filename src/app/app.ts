@@ -12,7 +12,12 @@ import { Weather } from './services/weather';
 })
 export class App implements OnInit {
   city: string = '';
-  today: string = new Date().toDateString();
+  today = new Date().toLocaleDateString('fr-FR', {
+    weekday: 'long', // jour de la semaine
+    year: 'numeric', // année
+    month: 'long', // mois
+    day: 'numeric', // jour du mois
+  });
   weatherData: any;
   errorMessage: string = '';
   isLoading: boolean = false;
