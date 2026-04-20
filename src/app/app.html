@@ -12,8 +12,27 @@
   </head>
   <body>
     <div class="weather-card">
-      <!-- En-tête : Weatherapp + weatherforecast.com -->
-      <div class="app-header">
+      <!-- LOADING OVERLAY -->
+      <div class="overlay" *ngIf="isLoading">
+        <div class="overlay-content">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Chargement des données météo...</p>
+        </div>
+      </div>
+
+      <!-- ERROR OVERLAY -->
+      <div class="overlay error" *ngIf="errorMessage && !isLoading">
+        <button class="close-icon" (keyup)="closeError()" (click)="closeError()">
+          <i class="fas fa-xmark"></i>
+        </button>
+
+        <div class="overlay-content">
+          <i class="fas fa-triangle-exclamation"></i>
+          <p>{{ errorMessage }}</p>
+        </div>
+      </div>
+      <!-- En-tête -->
+      <div class="app-header" *ngIf="weatherData && !isLoading">
         <div style="display: flex; align-items: baseline; flex-wrap: wrap">
           <span class="app-title">MétéoApp</span>
           <span class="domain">meteoapp.com</span>
@@ -53,7 +72,7 @@
         </div>
       </div>
 
-      <!-- WEATHER FORECAST + new york (comme sur la capture) -->
+      <!-- WEATHER FORECAST + new york -->
       <div class="forecast-headline">
         <h2>Prévisions météorologiques</h2>
         <div class="city-badge">
@@ -61,26 +80,28 @@
         </div>
       </div>
 
-      <!-- Rapport du jour : Sun 01 Jan / 30°C / Polar Low etc -->
+      <!-- Rapport du jour -->
       <div class="today-report">
         <div class="report-header">
           <span><i class="far fa-calendar-alt" style="margin-right: 8px"></i>Rapport du jour</span>
           <span class="day"><i class="far fa-sun"></i> {{ today }}</span>
         </div>
-
+        <!-- Temperature -->
         <div class="main-temp-block">
           <div class="temp-large">{{ weatherData?.main?.temp | number: '1.0-0' }} °C</div>
           <div class="condition-tag">
-            <i class="fas fa-cloud-snow"></i>
-            <!-- icône qui évoque "Polar Low" -->
+            <img
+              *ngIf="weatherData?.weather?.[0]?.icon"
+              [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'"
+              alt="weather icon"
+            />
             <span>{{ weatherData?.weather?.[0]?.description }}</span>
           </div>
-          <div class="polar-badge"><i class="fas fa-temperature-low"></i> Chaleur SPL</div>
         </div>
 
-        <!-- Détails : Cherona, Country IN, Wind, Humidity, Pressure -->
+        <!-- Détails -->
         <div class="details-grid">
-          <!-- Cherona & Country -->
+          <!-- Country -->
           <div class="detail-item">
             <span class="detail-label"
               ><i class="fas fa-location-dot location-icon"></i>Location</span
@@ -148,7 +169,7 @@
         </div>
       </div>
 
-      <!-- Petite ligne de rappel (discrète) -->
+      <!-- Footer -->
       <div class="footer-note">
         <i class="far fa-clock"></i> Mettre à jour maintenant • Les prévions pour,
         {{ weatherData?.name }}

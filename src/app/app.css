@@ -34,6 +34,74 @@ body {
   color: #f0f7fc;
 }
 
+.weather-card {
+  position: relative;
+}
+
+/* Overlay général */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 20, 40, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  border-radius: 20px;
+}
+
+/* Contenu */
+.overlay-content {
+  text-align: center;
+  color: white;
+}
+
+/* Spinner */
+.overlay-content i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* ERROR STYLE */
+.overlay.error {
+  background: rgba(120, 0, 0, 0.8);
+}
+
+.overlay.error i {
+  color: #ff6b6b;
+}
+
+.close-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #ff6b6b;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  background: #ff4d4d;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
 /* En-tête */
 .app-header {
   display: flex;
@@ -245,11 +313,13 @@ body {
 .condition-tag {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(220, 240, 255, 0.05);
-  padding: 0.4rem 1.4rem 0.4rem 1.2rem;
-  border-radius: 60px;
-  border: 1px solid #5d9fbf55;
+  gap: 8px;
+  margin-left: 40px;
+}
+
+.condition-tag img {
+  width: 40px;
+  height: 40px;
 }
 
 .condition-tag i {
