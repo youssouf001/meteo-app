@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Weather {
   // Clé API OpenWeatherMap (authentification pour accéder aux données météo)
-  private apiKey = environment.apiKey;
+  private apiKey = 'fa576f44ed361ec4ff2d8b5f17bc08f0';
   private url = 'https://api.openweathermap.org/data/2.5/weather';
 
   // Injection du HttpClient pour effectuer les requêtes HTTP
