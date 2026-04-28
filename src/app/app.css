@@ -215,6 +215,38 @@ body {
   font-weight: 300;
 }
 
+/* Bordure rouge sur l'input si vide */
+.input-error {
+  border: 1.5px solid #f87171 !important;
+  outline: none;
+}
+
+/* Message d'avertissement */
+.empty-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 14px;
+  background: rgba(248, 113, 113, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  border-radius: 8px;
+  color: #f87171;
+  font-size: 0.85rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .search-btn {
   background: #2a6280;
   border: 1px solid #57a6c1;
@@ -287,6 +319,15 @@ body {
 }
 
 .report-header .day {
+  font-weight: 500;
+  background: #1e4f66;
+  padding: 0.2rem 1rem;
+  border-radius: 40px;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  color: white;
+}
+
+.report-header .time {
   font-weight: 500;
   background: #1e4f66;
   padding: 0.2rem 1rem;

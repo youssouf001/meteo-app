@@ -22,10 +22,6 @@
 
       <!-- ERROR OVERLAY -->
       <div class="overlay error" *ngIf="errorMessage && !isLoading">
-        <button class="close-icon" (keyup)="closeError()" (click)="closeError()">
-          <i class="fas fa-xmark"></i>
-        </button>
-
         <div class="overlay-content">
           <i class="fas fa-triangle-exclamation"></i>
           <p>{{ errorMessage }}</p>
@@ -64,11 +60,17 @@
             type="text"
             [(ngModel)]="city"
             placeholder="Entrer une ville..."
-            (keyup.enter)="getWeather(city)"
+            (keyup.enter)="getWeather()"
+            [class.input-error]="emptyMessage"
           />
-          <button class="search-btn" (click)="getWeather(city)">
+          <button class="search-btn" (click)="getWeather()">
             Rechercher <i class="fas fa-arrow-right"></i>
           </button>
+        </div>
+
+        <div class="empty-warning" *ngIf="emptyMessage">
+          <i class="fas fa-circle-exclamation"></i>
+          {{ emptyMessage }}
         </div>
       </div>
 
@@ -85,6 +87,7 @@
         <div class="report-header">
           <span><i class="far fa-calendar-alt" style="margin-right: 8px"></i>Rapport du jour</span>
           <span class="day"><i class="far fa-sun"></i> {{ today }}</span>
+          <span class="time"><i class="fa-regular fa-clock"></i> {{ time }}</span>
         </div>
         <!-- Temperature -->
         <div class="main-temp-block">
